@@ -20,6 +20,7 @@ public class PhilosophyTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
+    //Does not lead to Philosophy
     @Test
     public void browserShouldGetToPhilosophyArticle() {
         var selectLanguagePage = new SelectLanguagePage(driver, WIKIPEDIA_ORG);

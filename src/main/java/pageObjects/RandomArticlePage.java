@@ -13,9 +13,10 @@ public class RandomArticlePage {
         this.driver = driver;
     }
 
+    //Does not lead to Philosophy
     public void openNextRandomArticle(WebDriver driver) {
-        boolean isElementDispalyed = ( driver.findElements(By.xpath("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).isEmpty());
-        if (!isElementDispalyed) {
+        boolean isElementDisplayed = (driver.findElements(By.xpath("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).isEmpty());
+        if (!isElementDisplayed) {
             driver.findElement(By.xpath("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).click();
             driver.findElement(By.xpath("//div/div/div/p//a[starts-with(@href,'/wiki')]")).click();
         } else {
@@ -25,8 +26,15 @@ public class RandomArticlePage {
     }
 
     public void openNextRandomArticleBracketsExcluded(WebDriver driver) {
-        WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')]"));
-        firstLinkToArticle.click();
+        boolean isElementDisplayed = (driver.findElements(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki/Greek_language')]")).isEmpty() ||
+                driver.findElements(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki/Ancient')]")).isEmpty()) ||
+                driver.findElements(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki//wiki/Latin')]")).isEmpty();
+        if (!isElementDisplayed) {
+            driver.findElement(By.xpath("//div/div/div/p/a[2]")).click();
+        } else {
+            WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')]"));
+            firstLinkToArticle.click();
+        }
     }
 
     public String checkThisIsArticleAboutPhilosophy(WebDriver driver) {
