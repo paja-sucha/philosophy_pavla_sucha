@@ -37,6 +37,23 @@ public class PhilosophyTest {
 //        System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
     }
 
+    @Test
+    public void browserShouldGetToPhilosophyArticleBracketsExcluded() {
+        var selectLanguagePage = new SelectLanguagePage(driver, WIKIPEDIA_ORG);
+
+        MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
+        RandomArticlePage randomArticle = mainPage.openRandomArticle();
+        while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
+            randomArticle.openNextRandomArticleBracketsExcluded(driver);
+            System.out.println(randomArticle.checkThisIsArticleAboutPhilosophy(driver));
+        }
+
+        randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
+
+//        TODO: count and print out the number of redirects
+//        System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
+    }
+
     @AfterEach
     public void tearDown() {
         driver.close();

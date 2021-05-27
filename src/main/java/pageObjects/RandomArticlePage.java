@@ -24,6 +24,11 @@ public class RandomArticlePage {
         }
     }
 
+    public void openNextRandomArticleBracketsExcluded(WebDriver driver) {
+        WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')]"));
+        firstLinkToArticle.click();
+    }
+
     public String checkThisIsArticleAboutPhilosophy(WebDriver driver) {
         WebElement philosophyArticle = driver.findElement(By.id("firstHeading"));
         return philosophyArticle.getText();
