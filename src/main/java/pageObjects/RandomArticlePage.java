@@ -1,11 +1,13 @@
 package pageObjects;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class RandomArticlePage {
-    private WebDriver driver;
+
+    public final WebDriver driver;
 
     public RandomArticlePage(WebDriver driver) {
         this.driver = driver;
@@ -16,8 +18,8 @@ public class RandomArticlePage {
         firstLinkToArticle.click();
     }
 
-    public void openNextRandomArticleWithHidenFirstLink(WebDriver driver) {
-        WebElement irregularFirstLinkToArticle = driver.findElement(By.xpath("//a[@class='mw-redirect']"));
+    public void openNextRandomArticleWithHiddenFirstLink(WebDriver driver) {
+        WebElement irregularFirstLinkToArticle = driver.findElement(By.xpath("//a[@class = 'mw-redirect']"));
         if (irregularFirstLinkToArticle.isDisplayed()) {
             irregularFirstLinkToArticle.click();
         } else {
@@ -26,8 +28,13 @@ public class RandomArticlePage {
         }
     }
 
-    public String isThisThePhilosophyArticle(WebDriver driver) {
+    public String checkThisIsArticleAboutPhilosophy(WebDriver driver) {
         WebElement philosophyArticle = driver.findElement(By.id("firstHeading"));
         return philosophyArticle.getText();
+    }
+
+    public void thisShouldBeArticleAboutPhilosophy(WebDriver driver) {
+        WebElement philosophyArticle = driver.findElement(By.id("firstHeading"));
+        Assertions.assertEquals("Philosophy", philosophyArticle.getText(), "This is not an article about Philosophy");
     }
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class SelectLanguagePage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public SelectLanguagePage(WebDriver browser) {
         this.driver = browser;
@@ -25,7 +25,6 @@ public class SelectLanguagePage {
         WebElement EnglishLanguageBtn = driver.findElement(By.xpath("//a[@id = 'js-link-box-en']"));
         EnglishLanguageBtn.click();
 
-        var mainPage = new MainPage(driver);
-        return mainPage;
+        return new MainPage(driver);
     }
 }

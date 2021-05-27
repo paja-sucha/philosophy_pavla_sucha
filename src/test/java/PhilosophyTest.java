@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +9,7 @@ import pageObjects.SelectLanguagePage;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestGetToPhilosophyArticle {
+public class PhilosophyTest {
     private static WebDriver driver;
     private static final String WIKIPEDIA_ORG = "https://www.wikipedia.org/";
 
@@ -27,29 +26,29 @@ public class TestGetToPhilosophyArticle {
 
         MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
         RandomArticlePage randomArticle = mainPage.openRandomArticle();
-        while (!randomArticle.isThisThePhilosophyArticle(driver).equals("Philosophy")) {
+        while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
             randomArticle.openNextRandomArticle(driver);
-            System.out.println(randomArticle.isThisThePhilosophyArticle(driver));
+            System.out.println(randomArticle.checkThisIsArticleAboutPhilosophy(driver));
         }
 
-        Assertions.assertEquals("Philosophy", randomArticle.isThisThePhilosophyArticle(driver), "This is not an article about Philosophy");
+        randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
 
 //      TODO: count and print out the number of redirects
 //      System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
     }
 
     @Test
-    public void browserShouldGetToPhilosophyArticleHidenFirstLink() {
-
+    public void browserShouldGetToPhilosophyArticleHiddenFirstLink() {
         var selectLanguagePage = new SelectLanguagePage(driver, WIKIPEDIA_ORG);
+
         MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
         RandomArticlePage randomArticle = mainPage.openRandomArticle();
-        while (!randomArticle.isThisThePhilosophyArticle(driver).equals("Philosophy")) {
-            randomArticle.openNextRandomArticleWithHidenFirstLink(driver);
-
-            System.out.println(randomArticle.isThisThePhilosophyArticle(driver));
+        while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
+            randomArticle.openNextRandomArticleWithHiddenFirstLink(driver);
+            System.out.println(randomArticle.checkThisIsArticleAboutPhilosophy(driver));
         }
-        Assertions.assertEquals("Philosophy", randomArticle.isThisThePhilosophyArticle(driver), "This is not an article about Philosophy");
+
+        randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
 
 //        TODO: count and print out the number of redirects
 //        System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
