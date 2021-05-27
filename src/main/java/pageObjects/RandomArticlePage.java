@@ -14,16 +14,12 @@ public class RandomArticlePage {
     }
 
     public void openNextRandomArticle(WebDriver driver) {
-        WebElement firstLinkToArticle = driver.findElement(By.xpath("//p//a[starts-with(@href,'/wiki')]"));
-        firstLinkToArticle.click();
-    }
-
-    public void openNextRandomArticleWithHiddenFirstLink(WebDriver driver) {
-        WebElement irregularFirstLinkToArticle = driver.findElement(By.xpath("//a[@class = 'mw-redirect']"));
-        if (irregularFirstLinkToArticle.isDisplayed()) {
-            irregularFirstLinkToArticle.click();
+        boolean isElementDispalyed = ( driver.findElements(By.xpath("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).isEmpty());
+        if (!isElementDispalyed) {
+            driver.findElement(By.xpath("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).click();
+            driver.findElement(By.xpath("//div/div/div/p//a[starts-with(@href,'/wiki')]")).click();
         } else {
-            WebElement firstLinkToArticle = driver.findElement(By.xpath("//p//a[starts-with(@href,'/wiki')]"));
+            WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')]"));
             firstLinkToArticle.click();
         }
     }
