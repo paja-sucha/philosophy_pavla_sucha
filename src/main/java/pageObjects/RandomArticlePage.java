@@ -25,6 +25,7 @@ public class RandomArticlePage {
         }
     }
 
+    //TODO: theoretical concept, find xpath
     public void openNextRandomArticleBracketsExcluded(WebDriver driver) {
         boolean isElementDisplayed = (driver.findElements(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki/Greek_language')]")).isEmpty() ||
                 driver.findElements(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki/Ancient')]")).isEmpty()) ||
