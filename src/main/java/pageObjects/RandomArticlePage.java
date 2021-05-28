@@ -27,7 +27,7 @@ public class RandomArticlePage {
 
     //TODO: theoretical concept, find xpath
     public void openNextRandomArticleBracketsExcluded(WebDriver driver) {
-        boolean isElementDisplayed = (driver.findElements(By.className("mw-redirect"))).isEmpty();
+        boolean isElementDisplayed = (driver.findElements(By.xpath("//div/div/div/p/b/following-sibling::a[@class='mw-redirect']"))).isEmpty();
         if (!isElementDisplayed) {
             driver.findElement(By.xpath("//div/div/div/p/a[2]")).click();
         } else {
