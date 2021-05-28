@@ -13,6 +13,7 @@ public class RandomArticlePage {
         this.driver = driver;
     }
 
+    /*
     //Does not lead to Philosophy
     public void openNextRandomArticle(WebDriver driver) {
         boolean isElementDisplayed = (driver.findElements(By.className("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).isEmpty());
@@ -24,6 +25,8 @@ public class RandomArticlePage {
             firstLinkToArticle.click();
         }
     }
+
+     */
 
     //TODO: theoretical concept, find xpath
     public void openNextRandomArticleBracketsExcluded(WebDriver driver) {

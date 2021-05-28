@@ -20,6 +20,7 @@ public class PhilosophyTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
+    /*
     //Does not lead to Philosophy
     @Test
     public void browserShouldGetToPhilosophyArticle() {
@@ -38,21 +39,23 @@ public class PhilosophyTest {
 //        System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
     }
 
+     */
+
     @Test
     public void browserShouldGetToPhilosophyArticleBracketsExcluded() {
+        int count = 0;
         var selectLanguagePage = new SelectLanguagePage(driver, WIKIPEDIA_ORG);
 
         MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
         RandomArticlePage randomArticle = mainPage.openRandomArticle();
         while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
             randomArticle.openNextRandomArticleBracketsExcluded(driver);
-            System.out.println(randomArticle.checkThisIsArticleAboutPhilosophy(driver));
+            count++;
+            System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
         }
 
         randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
-
-//        TODO: count and print out the number of redirects
-//        System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
+        System.out.println("There was " + count + "of redirects on my way to philosophy");
     }
 
     @AfterEach
