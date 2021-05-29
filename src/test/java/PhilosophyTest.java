@@ -34,17 +34,20 @@ public class PhilosophyTest {
             randomArticle.openNextRandomArticle(driver);
             count++;
             System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
+            if (randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
+                break;
+            }
 
             randomArticle.openNextRandomArticle(driver);
             count++;
             System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
             String headerOfNextArticle = driver.findElement(By.xpath("//h1")).getText();
+
             if (headerOfArticle.equals(headerOfNextArticle)) {
                 randomArticle.openNextRandomArticle(driver);
                 randomArticle.openNextLinkToRandomArticle(driver);
             }
         }
-
         randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
         System.out.println("There was " + count + " of redirects on my way to philosophy");
     }

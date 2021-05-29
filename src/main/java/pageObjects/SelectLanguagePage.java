@@ -22,7 +22,7 @@ public class SelectLanguagePage {
     }
 
     public MainPage selectEnglishLanguage() {
-        WebElement EnglishLanguageBtn = driver.findElement(By.xpath("//a[@id = 'js-link-box-en']"));
+        var EnglishLanguageBtn = driver.findElement(By.xpath("//a[@id = 'js-link-box-en']"));
         EnglishLanguageBtn.click();
 
         return new MainPage(driver);
