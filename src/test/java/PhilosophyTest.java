@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pageObjects.MainPage;
@@ -20,42 +21,32 @@ public class PhilosophyTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    /*
-    //Does not lead to Philosophy
     @Test
     public void browserShouldGetToPhilosophyArticle() {
-        var selectLanguagePage = new SelectLanguagePage(driver, WIKIPEDIA_ORG);
-
-        MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
-        RandomArticlePage randomArticle = mainPage.openRandomArticle();
-        while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
-            randomArticle.openNextRandomArticle(driver);
-            System.out.println(randomArticle.checkThisIsArticleAboutPhilosophy(driver));
-        }
-
-        randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
-
-//        TODO: count and print out the number of redirects
-//        System.out.println("There was " + "number" + " of redirects on my way to philosophy.");
-    }
-
-     */
-
-    @Test
-    public void browserShouldGetToPhilosophyArticleBracketsExcluded() {
         int count = 0;
         var selectLanguagePage = new SelectLanguagePage(driver, WIKIPEDIA_ORG);
 
         MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
         RandomArticlePage randomArticle = mainPage.openRandomArticle();
+
         while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
-            randomArticle.openNextRandomArticleBracketsExcluded(driver);
+            String headerOfArticle = driver.findElement(By.xpath("//h1")).getText();
+            randomArticle.openNextRandomArticle(driver);
             count++;
             System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
+
+            randomArticle.openNextRandomArticle(driver);
+            count++;
+            System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
+            String headerOfNextArticle = driver.findElement(By.xpath("//h1")).getText();
+            if (headerOfArticle.equals(headerOfNextArticle)) {
+                randomArticle.openNextRandomArticle(driver);
+                randomArticle.openNextLinkToRandomArticle(driver);
+            }
         }
 
         randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
-        System.out.println("There was " + count + "of redirects on my way to philosophy");
+        System.out.println("There was " + count + " of redirects on my way to philosophy");
     }
 
     @AfterEach

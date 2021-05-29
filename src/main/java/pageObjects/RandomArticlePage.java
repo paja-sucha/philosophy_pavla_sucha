@@ -13,28 +13,25 @@ public class RandomArticlePage {
         this.driver = driver;
     }
 
-    /*
-    //Does not lead to Philosophy
+    //TODO: theoretical concept, find xpath; zkusit vyskočit z cyklu, když se bude opakovat článek, skoč na další odkaz
     public void openNextRandomArticle(WebDriver driver) {
-        boolean isElementDisplayed = (driver.findElements(By.className("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).isEmpty());
+        boolean isElementDisplayed =
+                (driver.findElements(By.xpath("//div/div/div/p/b/following-sibling::a[starts-with(@href,'/wiki/Help:IPA/')]"))).isEmpty();
         if (!isElementDisplayed) {
-            driver.findElement(By.xpath("//div/div/div/p//span/a[starts-with(@href,'/wiki/Help:IPA/')]")).click();
-            driver.findElement(By.xpath("//div/div/div/p//a[starts-with(@href,'/wiki')]")).click();
+            driver.findElement(By.xpath("//div/div/div/p/a[2]")).click();
         } else {
             WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')]"));
             firstLinkToArticle.click();
         }
     }
 
-     */
-
-    //TODO: theoretical concept, find xpath
-    public void openNextRandomArticleBracketsExcluded(WebDriver driver) {
-        boolean isElementDisplayed = (driver.findElements(By.xpath("//div/div/div/p/b/following-sibling::a[@class='mw-redirect']"))).isEmpty();
+    public void openNextLinkToRandomArticle(WebDriver driver) {
+        boolean isElementDisplayed =
+                (driver.findElements(By.xpath("//div/div/div/p/b/following-sibling::a[starts-with(@href,'/wiki/Help:IPA/')]"))).isEmpty();
         if (!isElementDisplayed) {
-            driver.findElement(By.xpath("//div/div/div/p/a[2]")).click();
+            driver.findElement(By.xpath("//div/div/div/p/a[3]")).click();
         } else {
-            WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')]"));
+            WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')][3]"));
             firstLinkToArticle.click();
         }
     }
