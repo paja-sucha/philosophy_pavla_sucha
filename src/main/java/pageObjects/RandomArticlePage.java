@@ -31,7 +31,7 @@ public class RandomArticlePage {
         if (!isElementDisplayed) {
             driver.findElement(By.xpath("//div/div/div/p/a[3]")).click();
         } else {
-            WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')][3]"));
+            WebElement firstLinkToArticle = driver.findElement(By.xpath("//div/div/div/p/a[starts-with(@href,'/wiki')][2]"));
             firstLinkToArticle.click();
         }
     }
