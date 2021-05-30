@@ -1,12 +1,11 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import pageObjects.MainPage;
-import pageObjects.RandomArticlePage;
-import pageObjects.SelectLanguagePage;
+import pageobject.MainPage;
+import pageobject.RandomArticlePage;
+import pageobject.SelectLanguagePage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,32 +27,20 @@ public class PhilosophyTest {
 
         MainPage mainPage = selectLanguagePage.selectEnglishLanguage();
         RandomArticlePage randomArticle = mainPage.openRandomArticle();
-
         while (!randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
-            String headerOfArticle = driver.findElement(By.xpath("//h1")).getText();
-            randomArticle.openNextRandomArticle(driver);
+            randomArticle.openNextRandomArticle(driver, 1);
             count++;
-            System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
-            if (randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Philosophy")) {
-                break;
-            }
-
-            randomArticle.openNextRandomArticle(driver);
-            count++;
-            System.out.println(count + ". " + randomArticle.checkThisIsArticleAboutPhilosophy(driver));
-            String headerOfNextArticle = driver.findElement(By.xpath("//h1")).getText();
-
-            if (headerOfArticle.equals(headerOfNextArticle)) {
-                randomArticle.openNextRandomArticle(driver);
-                randomArticle.openNextLinkToRandomArticle(driver);
+            if (randomArticle.checkThisIsArticleAboutPhilosophy(driver).equals("Language")) {
+                randomArticle.openNextRandomArticle(driver, 8);
             }
         }
+
         randomArticle.thisShouldBeArticleAboutPhilosophy(driver);
         System.out.println("There was " + count + " of redirects on my way to philosophy");
     }
 
     @AfterEach
     public void tearDown() {
-        driver.close();
+        driver.quit();
     }
 }
